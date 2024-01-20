@@ -58,7 +58,7 @@ void deleteatend() {
   struct node *ptr;
   while (linkedlist->next->next != NULL)
     linkedlist = linkedlist->next;
-  ptr = linkedlist;
+  ptr = linkedlist->next;
   linkedlist->next = NULL;
   free(ptr);
 }
@@ -92,24 +92,45 @@ int searchlist(int key) {
   return 0;
 }
 
+void swap()
+{
+  struct node *firstnode, *secondnode, *prev;
+  firstnode = head;
+  secondnode = head->next;
+  prev = secondnode->next;
+  head = secondnode;
+  head->next = firstnode;
+  head->next->next = prev;
+}
+
+void reverseswap()
+{
+  struct node *firstnode, *secondnode, *prev = NULL, *current = head;
+  firstnode = head;
+  secondnode = head->next;
+  while (current->next != NULL)
+  {
+    prev = current;
+    current = current->next;
+  }
+  head = current;
+  head->next = secondnode;
+  prev->next = firstnode;
+  firstnode->next = NULL;
+}
+
 int main() {
 
-  insertatstart(14);
-  insertatstart(17);
+  insertatstart(5);
+  insertatstart(3);
   insertatstart(4);
   printlist();
-  printf("the current list adding all to start\n");
-  insertatend(88);
-  insertatend(89);
-  insertatend(90);
-  insertatend(91);
-  printf("the current list adding all to end\n");
+  printf("\n this is the list before swap");
+  swap();
   printlist();
-  deleteatbegin();
-  deleteatbegin();
-  deleteatend();
-  printf("the current list after deleting first 2 and last one \n");
+  printf("\n this is the list after the swap");
+  reverseswap();
   printlist();
-
+  printf("\n this is the list after the reverseswap");
   return (0);
 }
