@@ -1,13 +1,7 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include "lists.h"
 
-struct node {
-  int data;
-  struct node *next;
-};
-
-struct node *head = NULL;
-struct node *current = NULL;
+struct node *head;
+struct node *current;
 
 void printlist() {
   struct node *p = head;
@@ -92,23 +86,43 @@ int searchlist(int key) {
   return 0;
 }
 
+void swaplist() {
+  // Check if there are at least two nodes in the list
+  if (head != NULL && head->next != NULL) {
+    struct node *firstnode = head;
+    struct node *secondnode = head->next;
+
+    // Update head to point to the second node
+    head = secondnode;
+
+    // Adjust the next pointers to swap the nodes
+    firstnode->next = secondnode->next;
+    secondnode->next = firstnode;
+  }
+}
+
+void reverseswap() {
+  struct node *firstnode = head, *secondnode = head->next;
+  struct node *prev = NULL, *current = head;
+
+  while (head->next != NULL) {
+    prev = current;
+    current = current->next;
+  }
+  current->next = firstnode;
+  head = secondnode;
+  prev->next = NULL;
+}
+
 int main() {
 
   insertatstart(14);
-  insertatstart(17);
-  insertatstart(4);
+  insertatstart(15);
+  insertatstart(16);
   printlist();
-  printf("the current list adding all to start\n");
-  insertatend(88);
-  insertatend(89);
-  insertatend(90);
-  insertatend(91);
-  printf("the current list adding all to end\n");
+  swaplist();
   printlist();
-  deleteatbegin();
-  deleteatbegin();
-  deleteatend();
-  printf("the current list after deleting first 2 and last one \n");
+  reverseswap();
   printlist();
 
   return (0);
