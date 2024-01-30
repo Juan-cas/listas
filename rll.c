@@ -52,7 +52,7 @@ void deleteatend() {
   struct node *ptr;
   while (linkedlist->next->next != NULL)
     linkedlist = linkedlist->next;
-  ptr = linkedlist;
+  ptr = linkedlist->next;
   linkedlist->next = NULL;
   free(ptr);
 }
@@ -86,6 +86,7 @@ int searchlist(int key) {
   return 0;
 }
 
+<<<<<<< HEAD
 void swaplist() {
   // Check if there are at least two nodes in the list
   if (head != NULL && head->next != NULL) {
@@ -112,18 +113,56 @@ void reverseswap() {
   current->next = firstnode;
   head = secondnode;
   prev->next = NULL;
+=======
+void swap()
+{
+  struct node *firstnode, *secondnode, *prev;
+  firstnode = head;
+  secondnode = head->next;
+  prev = secondnode->next;
+  head = secondnode;
+  head->next = firstnode;
+  head->next->next = prev;
+}
+
+void reverseswap()
+{
+  struct node *firstnode, *secondnode, *prev = NULL, *current = head;
+  firstnode = head;
+  secondnode = head->next;
+  while (current->next != NULL)
+  {
+    prev = current;
+    current = current->next;
+  }
+  head = current;
+  head->next = secondnode;
+  prev->next = firstnode;
+  firstnode->next = NULL;
+>>>>>>> 5a4ee45ddcf204523c4fa6c31b0b7824e72423ff
 }
 
 int main() {
 
+<<<<<<< HEAD
   insertatstart(14);
   insertatstart(15);
   insertatstart(16);
   printlist();
   swaplist();
   printlist();
+=======
+  insertatstart(5);
+  insertatstart(3);
+  insertatstart(4);
+  printlist();
+  printf("\n this is the list before swap");
+  swap();
+  printlist();
+  printf("\n this is the list after the swap");
+>>>>>>> 5a4ee45ddcf204523c4fa6c31b0b7824e72423ff
   reverseswap();
   printlist();
-
+  printf("\n this is the list after the reverseswap");
   return (0);
 }
